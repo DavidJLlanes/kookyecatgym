@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="KookyeCatGym" />
+    <meta name="theme-color" content="#083398" />
+    <meta name="description" content="App de entrenamiento con 1318 ejercicios, rutinas personalizadas y seguimiento de progreso" />
+
+    <title>KookyeCatGym</title>
+
+    <!-- Open Graph / Facebook, WhatsApp, Telegram, LinkedIn, etc. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kookyecatgym.com/" />
+    <meta property="og:site_name" content="KookyeCatGym" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content="KookyeCatGym — App de Entrenamiento y Fitness" />
+    <meta property="og:description" content="App de entrenamiento con 1318 ejercicios, rutinas personalizadas y seguimiento de progreso" />
+    <meta property="og:image" content="https://kookyecatgym.com/social-preview.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="KookyeCatGym - App de Entrenamiento y Fitness" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KookyeCatGym — App de Entrenamiento y Fitness" />
+    <meta name="twitter:description" content="App de entrenamiento con 1318 ejercicios, rutinas personalizadas y seguimiento de progreso" />
+    <meta name="twitter:image" content="https://kookyecatgym.com/social-preview.jpg" />
+    <meta name="twitter:image:alt" content="KookyeCatGym - App de Entrenamiento y Fitness" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Status bar color (Android) -->
+    <meta name="mobile-web-app-capable" content="yes" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Registrar Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+              console.log('✅ Service Worker registrado:', reg);
+              // Actualizar cuando hay nueva versión
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'activated') {
+                    console.log('✅ Nueva versión disponible');
+                    if (confirm('Nueva versión disponible. ¿Actualizar?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch(err => console.log('❌ Error registrando SW:', err));
+        });
+      }
+    </script>
+  </body>
+</html>
+

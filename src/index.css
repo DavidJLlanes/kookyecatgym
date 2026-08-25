@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Tipografía más grande en toda la app (Tailwind usa rem, así que subir
+   la base escala proporcionalmente todos los tamaños) */
+html {
+  font-size: 19px;
+}
